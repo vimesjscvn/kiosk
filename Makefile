@@ -52,17 +52,9 @@ update-version:
 	echo "Version updated to $$new_version"
 
 # Deploy targets
-.PHONY: deploy-dev
-deploy-dev:
-	docker compose --env-file .env --compatibility --profile=dev -f docker-db.yml -f docker-worker.yml -f docker-api.local.yml -f docker-web.local.yml up -d --no-deps --build
-
-.PHONY: deploy-local
-deploy-local:
-	docker compose --env-file .env --compatibility --profile=prod -f docker-db.yml -f docker-worker.yml -f docker-api.local.yml -f docker-web.local.yml up -d --no-deps --build
-
 .PHONY: deploy-prod
 deploy-prod:
-	docker compose --env-file .env --compatibility --profile=prod -f docker-db.yml -f docker-worker.yml -f docker-api.prod.yml -f docker-web.prod.yml up -d --no-deps --build
+	docker compose --env-file .env --compatibility --profile=prod -f docker-db.yml -f docker-worker.yml -f docker-api.yml -f docker-web.yml up -d --no-deps --build
 
 .PHONY: deploy-db
 deploy-db:
@@ -75,11 +67,3 @@ deploy-worker:
 .PHONY: deploy-tool
 deploy-tool:
 	docker-compose --env-file .env --compatibility --profile=prod -f docker-tool.yml up -d --no-deps --build
-
-.PHONY: deploy-local-api
-deploy-local-api:
-	docker-compose --env-file .env --compatibility --profile=prod -f docker-api.local.yml up -d --no-deps --build
-
-.PHONY: deploy-local-web
-deploy-local-web:
-	docker-compose --env-file .env --compatibility --profile=prod -f docker-web.local.yml up -d --no-deps --build
