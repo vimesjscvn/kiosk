@@ -67,3 +67,7 @@ deploy-worker:
 .PHONY: deploy-tool
 deploy-tool:
 	docker-compose --env-file .env --compatibility --profile=prod -f docker-tool.yml up -d --no-deps --build
+
+.PHONY: deploy-web
+deploy-local-web:
+	docker-compose --env-file .env --compatibility --profile=prod -f docker-web.yml up -d --no-deps --build
