@@ -1,0 +1,37 @@
+﻿version: '3.7'
+
+networks:
+  local:
+    driver: bridge
+
+services:
+  lcd.web:
+    build:
+      context: .
+      dockerfile: TEK.LCD/Dockerfile
+    environment:
+      - CLIENT_KEY=${CLIENT_KEY}
+      - CLIENT_LOCATION=${CLIENT_LOCATION}
+      - SETTING_TIMER=${SETTING_TIMER}
+      - ROOM_TIMER=${ROOM_TIMER}
+      - TNB_TIMER=${TNB_TIMER}
+      - CLS_TIMER=${CLS_TIMER}
+      - CLS_ROW=${CLS_ROW}
+      - APP_LOGO=${APP_LOGO}
+      - APP_FOOTER_SLOGAN=${APP_FOOTER_SLOGAN}
+      - END_POINT=${END_POINT}
+      - END_POINT_DEPT=${END_POINT_DEPT}
+      - API_AUDIO_RING=${API_AUDIO_RING}
+      - URL_VIDEO=${URL_VIDEO}
+      - API_TEMP_URL=${API_TEMP_URL}
+      - SUB_URL_API_TEMP=${SUB_URL_API_TEMP}
+      - API_TEMP_KEY=${API_TEMP_KEY}
+      - LOCATION=${LOCATION}
+      - NODE_ENV=${NODE_ENV}
+      - CFG_ENV=${CFG_ENV}
+    env_file:
+      - .env
+    ports:
+      - "${DEFAULT_PORT}08:3000"
+    networks:
+      - local

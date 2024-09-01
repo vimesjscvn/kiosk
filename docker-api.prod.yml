@@ -1,0 +1,198 @@
+﻿version: '3.7'
+
+networks:
+  local:
+    driver: bridge
+
+services:
+  kiosk.api:
+    image: thientam1992/kiosk-core-api:latest
+    container_name: kiosk-core-api-${PROFILE_ENV}
+    environment:
+      - Hospital__HospitalCode=${HOSPITAL_HOSPITAL_CODE}
+      - Hospital__FeeId=${HOSPITAL_FEE_ID}
+      - Hospital__ReExamMaxDay=${HOSPITAL_RE_EXAM_MAX_DAY}
+      - Hospital__ReExamMinDay=${HOSPITAL_RE_EXAM_MIN_DAY}
+      - Hospital__IsGroup=${HOSPITAL_IS_GROUP}
+      - Hospital__IsPriority=${HOSPITAL_IS_PRIORITY}
+      - Hospital__IsManual=${HOSPITAL_IS_MANUAL}
+      - Hospital__GroupCode=${HOSPITAL_GROUP_CODE}
+      - Hospital__IsForce=${HOSPITAL_IS_FORCE}
+      - Hospital__HoldDeviceId=${HOSPITAL_HOLD_DEVICE_ID}
+      - Hospital__MinBalance=${HOSPITAL_MIN_BALANCE}
+      - Hospital__LimitSyncPaidWaiting=${HOSPITAL_LIMIT_SYNC_PAID_WAITING}
+      - Hospital__CardFee=${HOSPITAL_CARD_FEE}
+      - Hospital__TempPatientCode=${HOSPITAL_TEMP_PATIENT_CODE}
+      - Hospital__HospitalArea=${HOSPITAL_AREA}
+      - Insurance__Username=${INSURANCE_USERNAME}
+      - Insurance__Password=${INSURANCE_PASSWORD}
+      - Insurance__Version=${INSURANCE_VERSION}
+      - Insurance__EmployeeName=${INSURANCE_EMPLOYEE_NAME}
+      - Insurance__EmployeeIdentiyCard=${INSURANCE_EMPLOYEE_IDENTITY_CARD}
+      - GroupDept__IsActive=${GROUP_DEPT_CONFIG_IS_ACTIVE}
+    restart: always
+    ports:
+      - "${DEFAULT_PORT}03:80"
+    volumes:
+      - ./Kiosk.API/wwwroot:/app/wwwroot
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    depends_on:
+      pgdatabase:
+        condition: service_healthy
+    profiles: [ "dev", "prod" ]
+    networks:
+      - local
+
+  private.gateway.api:
+    image: thientam1992/kiosk-out-gw:latest
+    container_name: kiosk-out-gw-${PROFILE_ENV}
+    environment:
+      - Hospital__HospitalCode=${HOSPITAL_HOSPITAL_CODE}
+      - Hospital__FeeId=${HOSPITAL_FEE_ID}
+      - Hospital__ReExamMaxDay=${HOSPITAL_RE_EXAM_MAX_DAY}
+      - Hospital__ReExamMinDay=${HOSPITAL_RE_EXAM_MIN_DAY}
+      - Hospital__IsGroup=${HOSPITAL_IS_GROUP}
+      - Hospital__IsPriority=${HOSPITAL_IS_PRIORITY}
+      - Hospital__IsManual=${HOSPITAL_IS_MANUAL}
+      - Hospital__GroupCode=${HOSPITAL_GROUP_CODE}
+      - Hospital__IsForce=${HOSPITAL_IS_FORCE}
+      - Hospital__HoldDeviceId=${HOSPITAL_HOLD_DEVICE_ID}
+      - Hospital__MinBalance=${HOSPITAL_MIN_BALANCE}
+      - Hospital__LimitSyncPaidWaiting=${HOSPITAL_LIMIT_SYNC_PAID_WAITING}
+      - Hospital__CardFee=${HOSPITAL_CARD_FEE}
+      - Hospital__TempPatientCode=${HOSPITAL_TEMP_PATIENT_CODE}
+      - Hospital__HospitalArea=${HOSPITAL_AREA}
+      - External__BaseUrl=${EXTERNAL_BASE_URL}
+    restart: always
+    ports:
+      - "${DEFAULT_PORT}09:80"
+    volumes:
+      - ./Private.Gateway.API/wwwroot:/app/wwwroot
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    profiles: [ "dev", "prod" ]
+    networks:
+      - local
+
+  admin.api:
+    image: thientam1992/kiosk-admin-api:latest
+    container_name: kiosk-admin-api-${PROFILE_ENV}
+    environment:
+      - Hospital__HospitalCode=${HOSPITAL_HOSPITAL_CODE}
+      - Hospital__FeeId=${HOSPITAL_FEE_ID}
+      - Hospital__ReExamMaxDay=${HOSPITAL_RE_EXAM_MAX_DAY}
+      - Hospital__ReExamMinDay=${HOSPITAL_RE_EXAM_MIN_DAY}
+      - Hospital__IsGroup=${HOSPITAL_IS_GROUP}
+      - Hospital__IsPriority=${HOSPITAL_IS_PRIORITY}
+      - Hospital__IsManual=${HOSPITAL_IS_MANUAL}
+      - Hospital__GroupCode=${HOSPITAL_GROUP_CODE}
+      - Hospital__IsForce=${HOSPITAL_IS_FORCE}
+      - Hospital__HoldDeviceId=${HOSPITAL_HOLD_DEVICE_ID}
+      - Hospital__MinBalance=${HOSPITAL_MIN_BALANCE}
+      - Hospital__LimitSyncPaidWaiting=${HOSPITAL_LIMIT_SYNC_PAID_WAITING}
+      - Hospital__CardFee=${HOSPITAL_CARD_FEE}
+      - Hospital__TempPatientCode=${HOSPITAL_TEMP_PATIENT_CODE}
+      - Hospital__HospitalArea=${HOSPITAL_AREA}
+      - BackgroundJob__SyncDepartmentJobConfig=${SYNC_DEPARTMENT_JOB_CONFIG}
+      - BackgroundJob__ResetOrderNumberJobConfig=${RESET_ORDER_NUMBER_JOB_CONFIG}
+    restart: always
+    ports:
+      - "${DEFAULT_PORT}05:80"
+    volumes:
+      - ./Admin.API/wwwroot:/app/wwwroot
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    profiles: [ "dev", "prod" ]
+    networks:
+      - local
+
+  public.gateway.api:
+    image: thientam1992/kiosk-in-gw:latest
+    container_name: kiosk-in-gw-${PROFILE_ENV}
+    environment:
+      - Hospital__HospitalCode=${HOSPITAL_HOSPITAL_CODE}
+      - Hospital__FeeId=${HOSPITAL_FEE_ID}
+      - Hospital__ReExamMaxDay=${HOSPITAL_RE_EXAM_MAX_DAY}
+      - Hospital__ReExamMinDay=${HOSPITAL_RE_EXAM_MIN_DAY}
+      - Hospital__IsGroup=${HOSPITAL_IS_GROUP}
+      - Hospital__IsPriority=${HOSPITAL_IS_PRIORITY}
+      - Hospital__IsManual=${HOSPITAL_IS_MANUAL}
+      - Hospital__GroupCode=${HOSPITAL_GROUP_CODE}
+      - Hospital__IsForce=${HOSPITAL_IS_FORCE}
+      - Hospital__HoldDeviceId=${HOSPITAL_HOLD_DEVICE_ID}
+      - Hospital__MinBalance=${HOSPITAL_MIN_BALANCE}
+      - Hospital__LimitSyncPaidWaiting=${HOSPITAL_LIMIT_SYNC_PAID_WAITING}
+      - Hospital__CardFee=${HOSPITAL_CARD_FEE}
+      - Hospital__TempPatientCode=${HOSPITAL_TEMP_PATIENT_CODE}
+      - Hospital__HospitalArea=${HOSPITAL_AREA}
+      - Hospital__NextCallTime=${HOSPITAL_NEXT_CALL_TIME}
+      - Hospital__MaxLimitNumberOfCallingPatient=${HOSPITAL_MAX_LIMIT_NUMBER_OF_CALLING_PATIENT}
+    restart: always
+    ports:
+      - "${DEFAULT_PORT}04:80"
+    volumes:
+      - ./Public.Gateway.API/wwwroot:/app/wwwroot
+    profiles: [ "dev", "prod" ]
+    networks:
+      - local
+
+  dept.api:
+    image: thientam1992/kiosk-dept-api:latest
+    container_name: kiosk-dept-group-${PROFILE_ENV}
+    environment:
+      - Hospital__HospitalCode=${HOSPITAL_HOSPITAL_CODE}
+      - Hospital__FeeId=${HOSPITAL_FEE_ID}
+      - Hospital__ReExamMaxDay=${HOSPITAL_RE_EXAM_MAX_DAY}
+      - Hospital__ReExamMinDay=${HOSPITAL_RE_EXAM_MIN_DAY}
+      - Hospital__IsGroup=${HOSPITAL_IS_GROUP}
+      - Hospital__IsPriority=${HOSPITAL_IS_PRIORITY}
+      - Hospital__IsManual=${HOSPITAL_IS_MANUAL}
+      - Hospital__GroupCode=${HOSPITAL_GROUP_CODE}
+      - Hospital__IsForce=${HOSPITAL_IS_FORCE}
+      - Hospital__HoldDeviceId=${HOSPITAL_HOLD_DEVICE_ID}
+      - Hospital__MinBalance=${HOSPITAL_MIN_BALANCE}
+      - Hospital__LimitSyncPaidWaiting=${HOSPITAL_LIMIT_SYNC_PAID_WAITING}
+      - Hospital__CardFee=${HOSPITAL_CARD_FEE}
+      - Hospital__TempPatientCode=${HOSPITAL_TEMP_PATIENT_CODE}
+      - Hospital__HospitalArea=${HOSPITAL_AREA}
+    restart: always
+    ports:
+      - "${DEFAULT_PORT}06:80"
+    volumes:
+      - ./DepartmentGroup.API/wwwroot:/app/wwwroot
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    profiles: [ "dev", "prod" ]
+    networks:
+      - local
+
+  auth.api:
+    image: thientam1992/kiosk-auth-api:latest
+    container_name: kiosk-auth-api-${PROFILE_ENV}
+    environment:
+      - Hospital__HospitalCode=${HOSPITAL_HOSPITAL_CODE}
+      - Hospital__FeeId=${HOSPITAL_FEE_ID}
+      - Hospital__ReExamMaxDay=${HOSPITAL_RE_EXAM_MAX_DAY}
+      - Hospital__ReExamMinDay=${HOSPITAL_RE_EXAM_MIN_DAY}
+      - Hospital__IsGroup=${HOSPITAL_IS_GROUP}
+      - Hospital__IsPriority=${HOSPITAL_IS_PRIORITY}
+      - Hospital__IsManual=${HOSPITAL_IS_MANUAL}
+      - Hospital__GroupCode=${HOSPITAL_GROUP_CODE}
+      - Hospital__IsForce=${HOSPITAL_IS_FORCE}
+      - Hospital__HoldDeviceId=${HOSPITAL_HOLD_DEVICE_ID}
+      - Hospital__MinBalance=${HOSPITAL_MIN_BALANCE}
+      - Hospital__LimitSyncPaidWaiting=${HOSPITAL_LIMIT_SYNC_PAID_WAITING}
+      - Hospital__CardFee=${HOSPITAL_CARD_FEE}
+      - Hospital__TempPatientCode=${HOSPITAL_TEMP_PATIENT_CODE}
+      - Hospital__HospitalArea=${HOSPITAL_AREA}
+    restart: always
+    ports:
+      - "${DEFAULT_PORT}01:80"
+    volumes:
+      - ./Auth.API/wwwroot:/app/wwwroot
+      - /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+    profiles: [ "dev", "prod" ]
+    networks:
+      - local

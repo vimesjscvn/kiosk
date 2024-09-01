@@ -1,0 +1,41 @@
+.scrollLeft {
+  overflow: hidden;
+  width: 100%;
+  background: white;
+  position: relative;
+}
+
+.scrollLeft p {
+  width: 250%;
+  height: 100%;
+  margin: 0;
+  animation: scrollLeft 10s linear infinite reverse;
+  animation-delay: 3s;
+}
+
+@-moz-keyframes scrollLeft {
+  0% {
+    -moz-transform: translateX(-100%);
+  }
+  100% {
+    -moz-transform: translateX(100%);
+  }
+}
+
+@-webkit-keyframes scrollLeft {
+  0% {
+    -webkit-transform: translateX(-100%);
+  }
+  100% {
+    -webkit-transform: translateX(0%);
+  }
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}

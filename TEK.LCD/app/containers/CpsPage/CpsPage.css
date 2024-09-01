@@ -1,0 +1,198 @@
+.mainContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.blink_me {
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.mainTitle {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(1.5em);
+  font-weight: bold;
+  border-bottom: 1px solid black;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.listCps {
+  flex: 1;
+  border: 1px solid black;
+  display: flex;
+}
+.table {
+  flex: 1;
+  display: flex;
+  border: black;
+  height: 100%;
+  width: 100%;
+}
+.wrapListItem {
+  flex: 1;
+  display: flex;
+}
+.item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: black;
+}
+
+.wrapItem {
+  flex: 1;
+  display: flex;
+  padding-top: 12px;
+  align-items: center;
+  padding: 8px 16px;
+  background: #005fed;
+  border: 1px solid black;
+}
+
+.typePro {
+  background: red;
+}
+
+.number {
+  flex: 1;
+  text-align: center;
+  font-family: 'Roboto Mono';
+  font-weight: bold;
+  color: white;
+  font-size: calc(1.5em + 1vmax);
+}
+
+.wrapLogo {
+  padding: 8px 0px;
+  border: 1px solid black;
+  flex-direction: row;
+  justify-content: center;
+  display: flex;
+}
+
+.image {
+  margin: 0px 8px;
+  height: 5em;
+  resize: both;
+  width: 20%;
+}
+
+.logo {
+  font-weight: bold;
+  margin-top: 5px;
+  text-align: center;
+}
+.noteTitle {
+  font-weight: bold;
+}
+.wrapNote {
+  margin-top: 4px;
+  display: flex;
+}
+
+.note {
+  position: absolute;
+  left: 75%;
+}
+
+.normal {
+  height: 24px;
+  width: 24px;
+  background: #00aeed;
+}
+
+.pro {
+  height: 24px;
+  width: 24px;
+  background: red;
+}
+.noteName{ 
+  margin-left: 12px;
+}
+
+.scroll-left {
+  height: 40px;
+  overflow: hidden;
+  position: relative;
+  background: white;
+  color: black;
+}
+
+.scroll-left p {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  line-height: 40px;
+  /* text-align: center; */
+  /* Starting position */
+  -moz-transform: translateX(100%);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+  /* Apply animation to this element */
+  -moz-animation: scroll-left 30s linear infinite;
+  -webkit-animation: scroll-left 30s linear infinite;
+  animation: scroll-left 30s linear infinite;
+}
+
+/* Move it (define the animation) */
+
+@-moz-keyframes scroll-left {
+  0% {
+    -moz-transform: translateX(100%);
+  }
+  100% {
+    -moz-transform: translateX(-100%);
+  }
+}
+
+@-webkit-keyframes scroll-left {
+  0% {
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    -webkit-transform: translateX(-100%);
+  }
+}
+
+@keyframes scroll-left {
+  0% {
+    -moz-transform: translateX(100%);
+    /* Browser bug fix */
+    -webkit-transform: translateX(100%);
+    /* Browser bug fix */
+    transform: translateX(100%);
+  }
+  100% {
+    -moz-transform: translateX(-100%);
+    /* Browser bug fix */
+    -webkit-transform: translateX(-100%);
+    /* Browser bug fix */
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

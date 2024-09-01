@@ -1,0 +1,38 @@
+﻿// ***********************************************************************
+// Assembly         : CS.VM
+// Author           : TamNT
+// Created          : 04-16-2020
+//
+// Last Modified By : Admin
+// Last Modified On : 04-16-2020
+// ***********************************************************************
+// <copyright file="GetByPatientCodeRequest.cs" company="CS.VM">
+//     Copyright (c) . All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+
+using System.ComponentModel.DataAnnotations;
+
+namespace CS.VM.QueueNumberModels.Requests
+{
+    /// <summary>
+    ///     Class GetByPatientCodeRequest.
+    /// </summary>
+    public class GetByPatientCodeRequest
+    {
+        /// <summary>
+        ///     Gets or sets the department code.
+        /// </summary>
+        /// <value>The department code.</value>
+        [Required]
+        public string DepartmentCode { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the patient code.
+        /// </summary>
+        /// <value>The patient code.</value>
+        [Required]
+        public string PatientCode { get; set; }
+    }
+}

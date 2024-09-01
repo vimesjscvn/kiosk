@@ -1,0 +1,54 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="Interfaces\**" />
+        <Compile Remove="Loggers\**" />
+        <Compile Remove="ServiceFactory\**" />
+        <Compile Remove="Services\**" />
+        <EmbeddedResource Remove="Interfaces\**" />
+        <EmbeddedResource Remove="Loggers\**" />
+        <EmbeddedResource Remove="ServiceFactory\**" />
+        <EmbeddedResource Remove="Services\**" />
+        <None Remove="Interfaces\**" />
+        <None Remove="Loggers\**" />
+        <None Remove="ServiceFactory\**" />
+        <None Remove="Services\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="InternalRepo\ITransactionNumberConfigRepo.cs" />
+        <Compile Remove="InternalRepo\ITransactionNumberUserRepo.cs" />
+        <Compile Remove="InternalRepo\TransactionNumberConfigRepo.cs" />
+        <Compile Remove="InternalRepo\TransactionNumberUserRepo.cs" />
+        <Compile Remove="Models\Requests\CreatePaymentRequest.cs" />
+        <Compile Remove="Models\Requests\GenerateAdvancePaymentRequest.cs" />
+        <Compile Remove="Models\Requests\GenerateFinallyPaymentRequest.cs" />
+        <Compile Remove="Models\Responses\PaymentResponse.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="10.0.0" />
+        <PackageReference Include="Dapper" Version="2.0.123" />
+        <PackageReference Include="EPPlus" Version="5.3.2" />
+        <PackageReference Include="Hangfire.Core" Version="1.7.28" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.5" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+        <PackageReference Include="QRCoder" Version="1.3.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CS.Common\CS.Common.csproj" />
+        <ProjectReference Include="..\CS.SignalRClient\CS.SignalRClient.csproj" />
+        <ProjectReference Include="..\CS.ViewModel\CS.VM.csproj" />
+        <ProjectReference Include="..\Core.Service\Core.Service.csproj" />
+        <ProjectReference Include="..\Core.UoW\Core.UoW.csproj" />
+        <ProjectReference Include="..\Core.Common\Core.Common.csproj" />
+        <ProjectReference Include="..\Core.Email\Core.Email.csproj" />
+    </ItemGroup>
+
+</Project>

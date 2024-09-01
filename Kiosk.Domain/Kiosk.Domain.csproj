@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="BusinessObjects\**" />
+        <Compile Remove="Interfaces\**" />
+        <Compile Remove="Services\**" />
+        <EmbeddedResource Remove="BusinessObjects\**" />
+        <EmbeddedResource Remove="Interfaces\**" />
+        <EmbeddedResource Remove="Services\**" />
+        <None Remove="BusinessObjects\**" />
+        <None Remove="Interfaces\**" />
+        <None Remove="Services\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="Models\Requests\CreatePaymentRequest.cs" />
+        <Compile Remove="Models\Requests\GenerateAdvancePaymentRequest.cs" />
+        <Compile Remove="Models\Requests\GenerateFinallyPaymentRequest.cs" />
+        <Compile Remove="Models\Responses\PaymentResponse.cs" />
+        <Compile Remove="ServiceFactory\CardFactory.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper" Version="10.0.0" />
+        <PackageReference Include="EPPlus" Version="5.3.2" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.5" />
+        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\CS.Common\CS.Common.csproj" />
+        <ProjectReference Include="..\CS.SignalRClient\CS.SignalRClient.csproj" />
+        <ProjectReference Include="..\CS.ViewModel\CS.VM.csproj" />
+        <ProjectReference Include="..\Core.Service\Core.Service.csproj" />
+        <ProjectReference Include="..\Core.UoW\Core.UoW.csproj" />
+        <ProjectReference Include="..\Core.Common\Core.Common.csproj" />
+        <ProjectReference Include="..\Core.Email\Core.Email.csproj" />
+        <ProjectReference Include="..\Gateway.Domain\Gateway.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Models\Responses\" />
+        <Folder Include="ServiceFactory\" />
+    </ItemGroup>
+
+</Project>

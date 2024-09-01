@@ -1,0 +1,48 @@
+﻿version: '3.7'
+
+volumes:
+  metabase_data:
+    driver: local
+  portainer_data:
+    driver: local
+
+networks:
+  local:
+    driver: bridge
+
+services:
+  metabase:
+    image: metabase/metabase
+    container_name: metabase
+    restart: unless-stopped
+    ports:
+      - "${DEFAULT_PORT}001:3000"
+    volumes:
+      - metabase_data:/metabase-data
+    networks:
+      - local
+
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    restart: unless-stopped
+    ports:
+      - "${DEFAULT_PORT}002:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - local
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: kiosk-pg-admin-${PROFILE_ENV}
+    restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "${DEFAULT_PORT}003:80"
+    profiles: [ "dev", "prod" ]
+    networks:
+      - local
