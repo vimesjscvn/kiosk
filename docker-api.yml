@@ -37,9 +37,6 @@ services:
       - ./Kiosk.API/wwwroot:/app/wwwroot
       - /etc/timezone:/etc/timezone
       - /etc/localtime:/etc/localtime
-    depends_on:
-      pgdatabase:
-        condition: service_healthy
     profiles: [ "dev", "prod" ]
     networks:
       - local
